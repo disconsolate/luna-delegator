@@ -1,13 +1,29 @@
 syntax = "proto3";
+
 package lunadelegator.delegator;
+
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 option go_package = "luna-delegator/x/delegator/types";
 
 message DelegatorPacketData {
-    oneof packet {
-        NoData noData = 1;
-    }
+  oneof packet {
+    NoData                  noData              = 1;
+    IbcDelegationPacketData ibcDelegationPacket = 2;
+  }
 }
 
-message NoData {
+message NoData {}
+
+// IbcDelegationPacketData defines a struct for the packet payload
+message IbcDelegationPacketData {
+  string                   delegator = 1;
+  cosmos.base.v1beta1.Coin amount    = 2 [(gogoproto.nullable) = false];
 }
+
+// IbcDelegationPacketAck defines a struct for the packet acknowledgment
+message IbcDelegationPacketAck {
+  string validator = 1;
+}
+

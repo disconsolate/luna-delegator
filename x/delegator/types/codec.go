@@ -11,6 +11,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateDelegation{}, "delegator/CreateDelegation", nil)
 	cdc.RegisterConcrete(&MsgUpdateDelegation{}, "delegator/UpdateDelegation", nil)
 	cdc.RegisterConcrete(&MsgDeleteDelegation{}, "delegator/DeleteDelegation", nil)
+	cdc.RegisterConcrete(&MsgSendIbcDelegation{}, "delegator/SendIbcDelegation", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -19,6 +20,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCreateDelegation{},
 		&MsgUpdateDelegation{},
 		&MsgDeleteDelegation{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSendIbcDelegation{},
 	)
 	// this line is used by starport scaffolding # 3
 

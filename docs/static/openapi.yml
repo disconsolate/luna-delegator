@@ -72066,6 +72066,8 @@ definitions:
         format: uint64
   lunadelegator.delegator.MsgDeleteDelegationResponse:
     type: object
+  lunadelegator.delegator.MsgSendIbcDelegationResponse:
+    type: object
   lunadelegator.delegator.MsgUpdateDelegationResponse:
     type: object
   lunadelegator.delegator.NotSentDelegation:

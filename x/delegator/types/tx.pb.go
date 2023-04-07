@@ -325,6 +325,126 @@ func (m *MsgDeleteDelegationResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgDeleteDelegationResponse proto.InternalMessageInfo
 
+type MsgSendIbcDelegation struct {
+	Delegator        string     `protobuf:"bytes,5,opt,name=delegator,proto3" json:"delegator,omitempty"`
+	Amount           types.Coin `protobuf:"bytes,6,opt,name=amount,proto3" json:"amount"`
+	Creator          string     `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Port             string     `protobuf:"bytes,2,opt,name=port,proto3" json:"port,omitempty"`
+	ChannelID        string     `protobuf:"bytes,3,opt,name=channelID,proto3" json:"channelID,omitempty"`
+	TimeoutTimestamp uint64     `protobuf:"varint,4,opt,name=timeoutTimestamp,proto3" json:"timeoutTimestamp,omitempty"`
+}
+
+func (m *MsgSendIbcDelegation) Reset()         { *m = MsgSendIbcDelegation{} }
+func (m *MsgSendIbcDelegation) String() string { return proto.CompactTextString(m) }
+func (*MsgSendIbcDelegation) ProtoMessage()    {}
+func (*MsgSendIbcDelegation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_727ad264073cd1ca, []int{6}
+}
+func (m *MsgSendIbcDelegation) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSendIbcDelegation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSendIbcDelegation.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSendIbcDelegation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSendIbcDelegation.Merge(m, src)
+}
+func (m *MsgSendIbcDelegation) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSendIbcDelegation) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSendIbcDelegation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSendIbcDelegation proto.InternalMessageInfo
+
+func (m *MsgSendIbcDelegation) GetDelegator() string {
+	if m != nil {
+		return m.Delegator
+	}
+	return ""
+}
+
+func (m *MsgSendIbcDelegation) GetAmount() types.Coin {
+	if m != nil {
+		return m.Amount
+	}
+	return types.Coin{}
+}
+
+func (m *MsgSendIbcDelegation) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgSendIbcDelegation) GetPort() string {
+	if m != nil {
+		return m.Port
+	}
+	return ""
+}
+
+func (m *MsgSendIbcDelegation) GetChannelID() string {
+	if m != nil {
+		return m.ChannelID
+	}
+	return ""
+}
+
+func (m *MsgSendIbcDelegation) GetTimeoutTimestamp() uint64 {
+	if m != nil {
+		return m.TimeoutTimestamp
+	}
+	return 0
+}
+
+type MsgSendIbcDelegationResponse struct {
+}
+
+func (m *MsgSendIbcDelegationResponse) Reset()         { *m = MsgSendIbcDelegationResponse{} }
+func (m *MsgSendIbcDelegationResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSendIbcDelegationResponse) ProtoMessage()    {}
+func (*MsgSendIbcDelegationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_727ad264073cd1ca, []int{7}
+}
+func (m *MsgSendIbcDelegationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSendIbcDelegationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSendIbcDelegationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSendIbcDelegationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSendIbcDelegationResponse.Merge(m, src)
+}
+func (m *MsgSendIbcDelegationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSendIbcDelegationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSendIbcDelegationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSendIbcDelegationResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateDelegation)(nil), "lunadelegator.delegator.MsgCreateDelegation")
 	proto.RegisterType((*MsgCreateDelegationResponse)(nil), "lunadelegator.delegator.MsgCreateDelegationResponse")
@@ -332,36 +452,44 @@ func init() {
 	proto.RegisterType((*MsgUpdateDelegationResponse)(nil), "lunadelegator.delegator.MsgUpdateDelegationResponse")
 	proto.RegisterType((*MsgDeleteDelegation)(nil), "lunadelegator.delegator.MsgDeleteDelegation")
 	proto.RegisterType((*MsgDeleteDelegationResponse)(nil), "lunadelegator.delegator.MsgDeleteDelegationResponse")
+	proto.RegisterType((*MsgSendIbcDelegation)(nil), "lunadelegator.delegator.MsgSendIbcDelegation")
+	proto.RegisterType((*MsgSendIbcDelegationResponse)(nil), "lunadelegator.delegator.MsgSendIbcDelegationResponse")
 }
 
 func init() { proto.RegisterFile("lunadelegator/delegator/tx.proto", fileDescriptor_727ad264073cd1ca) }
 
 var fileDescriptor_727ad264073cd1ca = []byte{
-	// 377 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0xc8, 0x29, 0xcd, 0x4b,
-	0x4c, 0x49, 0xcd, 0x49, 0x4d, 0x4f, 0x2c, 0xc9, 0x2f, 0xd2, 0x47, 0xb0, 0x4a, 0x2a, 0xf4, 0x0a,
-	0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xc4, 0x51, 0x54, 0xe8, 0xc1, 0x59, 0x52, 0x1a, 0xb8, 0xb4, 0x42,
-	0x59, 0x99, 0xf9, 0x79, 0x10, 0x23, 0xa4, 0xe4, 0x92, 0xf3, 0x8b, 0x73, 0xf3, 0x8b, 0xf5, 0x93,
-	0x12, 0x8b, 0x53, 0xf5, 0xcb, 0x0c, 0x93, 0x52, 0x4b, 0x12, 0x0d, 0xf5, 0x93, 0xf3, 0x33, 0x61,
-	0xf2, 0x22, 0xe9, 0xf9, 0xe9, 0xf9, 0x60, 0xa6, 0x3e, 0x88, 0x05, 0x11, 0x55, 0x6a, 0x63, 0xe4,
-	0x12, 0xf6, 0x2d, 0x4e, 0x77, 0x2e, 0x4a, 0x4d, 0x2c, 0x49, 0x75, 0x81, 0x9b, 0x29, 0x24, 0xc1,
-	0xc5, 0x9e, 0x0c, 0x12, 0xcb, 0x2f, 0x92, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x82, 0x71, 0x85,
-	0x64, 0xb8, 0x38, 0xe1, 0xae, 0x90, 0x60, 0x02, 0xcb, 0x21, 0x04, 0x84, 0xcc, 0xb9, 0xd8, 0x12,
-	0x73, 0xf3, 0x4b, 0xf3, 0x4a, 0x24, 0x98, 0x15, 0x18, 0x35, 0xb8, 0x8d, 0x24, 0xf5, 0x20, 0xce,
-	0xd2, 0x03, 0x39, 0x4b, 0x0f, 0xea, 0x2c, 0x3d, 0xe7, 0xfc, 0xcc, 0x3c, 0x27, 0x96, 0x13, 0xf7,
-	0xe4, 0x19, 0x82, 0xa0, 0xca, 0x95, 0x74, 0xb9, 0xa4, 0xb1, 0xb8, 0x23, 0x28, 0xb5, 0xb8, 0x20,
-	0x3f, 0xaf, 0x38, 0x55, 0x88, 0x8f, 0x8b, 0x29, 0x33, 0x05, 0xec, 0x14, 0x96, 0x20, 0xa6, 0xcc,
-	0x14, 0xa5, 0x69, 0x10, 0x77, 0x87, 0x16, 0xa4, 0x10, 0xeb, 0x6e, 0x88, 0x09, 0x4c, 0x30, 0x13,
-	0x50, 0xfd, 0xc1, 0x8c, 0xdb, 0x1f, 0x2c, 0xa4, 0xf9, 0x43, 0x16, 0xec, 0x0f, 0x74, 0x77, 0xc1,
-	0xfc, 0xa1, 0x64, 0x0f, 0x76, 0x36, 0x48, 0x82, 0x3c, 0x67, 0x43, 0xcd, 0x47, 0x37, 0x00, 0x66,
-	0xbe, 0xd1, 0x5b, 0x26, 0x2e, 0x66, 0xdf, 0xe2, 0x74, 0xa1, 0x32, 0x2e, 0x01, 0x8c, 0x38, 0xd5,
-	0xd1, 0xc3, 0x91, 0xca, 0xf4, 0xb0, 0x84, 0xbc, 0x94, 0x09, 0x29, 0xaa, 0xe1, 0xf1, 0x54, 0xc6,
-	0x25, 0x80, 0x11, 0x27, 0x78, 0xed, 0x45, 0x57, 0x8d, 0xdf, 0x5e, 0x5c, 0xe1, 0x0a, 0xb2, 0x17,
-	0x23, 0x50, 0xf1, 0xda, 0x8b, 0xae, 0x1a, 0xbf, 0xbd, 0xb8, 0xc2, 0xdb, 0xc9, 0xea, 0xc4, 0x23,
-	0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0xe1, 0xc2,
-	0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0xc0, 0x99, 0x5e, 0x17, 0x91, 0x61, 0x2b, 0x90,
-	0xf3, 0x7d, 0x65, 0x41, 0x6a, 0x71, 0x12, 0x1b, 0x38, 0x0b, 0x1a, 0x03, 0x02, 0x00, 0x00, 0xff,
-	0xff, 0x79, 0xe4, 0x4e, 0x89, 0x1f, 0x04, 0x00, 0x00,
+	// 477 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4d, 0x6f, 0xd3, 0x30,
+	0x18, 0xae, 0xdb, 0x50, 0x34, 0x23, 0xa1, 0x62, 0x26, 0x51, 0xc2, 0x30, 0x55, 0x4e, 0x15, 0xa2,
+	0x8e, 0x36, 0x40, 0x48, 0x5c, 0x90, 0xb6, 0x5d, 0x76, 0xe8, 0x25, 0xc0, 0x85, 0x9b, 0x93, 0x58,
+	0x21, 0x52, 0x63, 0x47, 0xb1, 0x5b, 0x6d, 0x7f, 0x80, 0x33, 0x27, 0x7e, 0xd3, 0x8e, 0x3b, 0x72,
+	0x42, 0xa8, 0x15, 0x12, 0x3f, 0x03, 0xc5, 0xf9, 0xe8, 0x9a, 0x34, 0x11, 0xd9, 0xed, 0xed, 0xeb,
+	0xa7, 0xcf, 0x87, 0xf5, 0xc4, 0x70, 0xb2, 0x58, 0x72, 0xea, 0xb3, 0x05, 0x0b, 0xa8, 0x12, 0x89,
+	0xbd, 0x9d, 0xd4, 0x25, 0x89, 0x13, 0xa1, 0x04, 0x7a, 0xb2, 0x83, 0x20, 0xe5, 0x64, 0x4e, 0x9b,
+	0xfe, 0x9a, 0x4f, 0xa1, 0xe0, 0x19, 0x85, 0x89, 0x3d, 0x21, 0x23, 0x21, 0x6d, 0x97, 0x4a, 0x66,
+	0xaf, 0x8e, 0x5d, 0xa6, 0xe8, 0xb1, 0xed, 0x89, 0xb0, 0x38, 0x3f, 0x0c, 0x44, 0x20, 0xf4, 0x68,
+	0xa7, 0x53, 0xb6, 0xb5, 0xbe, 0x01, 0xf8, 0x78, 0x2e, 0x83, 0xb3, 0x84, 0x51, 0xc5, 0xce, 0x4b,
+	0x4e, 0x34, 0x86, 0xf7, 0xbd, 0x74, 0x27, 0x92, 0x31, 0x98, 0x80, 0xe9, 0x81, 0x53, 0xfc, 0x44,
+	0x47, 0xf0, 0xa0, 0x74, 0x31, 0xee, 0xeb, 0xb3, 0xed, 0x02, 0xbd, 0x83, 0x43, 0x1a, 0x89, 0x25,
+	0x57, 0xe3, 0xc1, 0x04, 0x4c, 0x1f, 0x9c, 0x3c, 0x25, 0x99, 0x2d, 0x92, 0xda, 0x22, 0xb9, 0x2d,
+	0x72, 0x26, 0x42, 0x7e, 0x6a, 0x5c, 0xff, 0x7a, 0xd1, 0x73, 0x72, 0xb8, 0x35, 0x83, 0xcf, 0xf6,
+	0xf8, 0x70, 0x98, 0x8c, 0x05, 0x97, 0x0c, 0x3d, 0x84, 0xfd, 0xd0, 0xd7, 0x56, 0x0c, 0xa7, 0x1f,
+	0xfa, 0xd6, 0x8f, 0xcc, 0xf7, 0xe7, 0xd8, 0xff, 0x5f, 0xdf, 0x19, 0x43, 0xbf, 0x60, 0xd8, 0xcd,
+	0x31, 0x68, 0xce, 0x61, 0x74, 0xcb, 0xf1, 0x5c, 0xe7, 0xa8, 0xfa, 0x2a, 0x72, 0x58, 0x1f, 0xb4,
+	0xed, 0xf4, 0xe0, 0x6e, 0xb6, 0x73, 0xfe, 0x2a, 0x41, 0xc9, 0xff, 0x07, 0xc0, 0xc3, 0xb9, 0x0c,
+	0x3e, 0x32, 0xee, 0x5f, 0xb8, 0xde, 0x2d, 0x85, 0x9d, 0xb8, 0xf7, 0x9a, 0xe3, 0x0e, 0x3b, 0xc5,
+	0x6d, 0x31, 0x8e, 0xa0, 0x11, 0x8b, 0x44, 0xe5, 0x15, 0xd1, 0x73, 0x6a, 0xc2, 0xfb, 0x4a, 0x39,
+	0x67, 0x8b, 0x8b, 0xf3, 0xe2, 0xce, 0xcb, 0x05, 0x7a, 0x09, 0x47, 0x2a, 0x8c, 0x98, 0x58, 0xaa,
+	0x4f, 0x61, 0xc4, 0xa4, 0xa2, 0x51, 0xac, 0x6f, 0xdf, 0x70, 0x6a, 0x7b, 0x0b, 0xc3, 0xa3, 0x7d,
+	0x31, 0x8b, 0x7b, 0x38, 0xf9, 0x3b, 0x80, 0x83, 0xb9, 0x0c, 0xd0, 0x0a, 0x8e, 0x6a, 0xdd, 0x7e,
+	0x45, 0x1a, 0xbe, 0x36, 0xb2, 0xa7, 0x81, 0xe6, 0x9b, 0x2e, 0xe8, 0xb2, 0xaf, 0x2b, 0x38, 0xaa,
+	0x75, 0xb3, 0x55, 0xb7, 0x8a, 0x6e, 0xd7, 0x6d, 0xea, 0x57, 0xaa, 0x5b, 0x2b, 0x57, 0xab, 0x6e,
+	0x15, 0xdd, 0xae, 0xdb, 0xd4, 0x3b, 0x74, 0x05, 0x1f, 0xd5, 0x3b, 0x37, 0x6b, 0xa3, 0xaa, 0xc1,
+	0xcd, 0xb7, 0x9d, 0xe0, 0x85, 0xf4, 0xe9, 0xfb, 0xeb, 0x35, 0x06, 0x37, 0x6b, 0x0c, 0x7e, 0xaf,
+	0x31, 0xf8, 0xbe, 0xc1, 0xbd, 0x9b, 0x0d, 0xee, 0xfd, 0xdc, 0xe0, 0xde, 0x17, 0xfd, 0xee, 0xce,
+	0xb6, 0x6f, 0xe6, 0xe5, 0xed, 0xa7, 0xf7, 0x2a, 0x66, 0xd2, 0x1d, 0xea, 0x57, 0xf0, 0xf5, 0xbf,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x21, 0x26, 0x9d, 0x17, 0xa2, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -379,6 +507,7 @@ type MsgClient interface {
 	CreateDelegation(ctx context.Context, in *MsgCreateDelegation, opts ...grpc.CallOption) (*MsgCreateDelegationResponse, error)
 	UpdateDelegation(ctx context.Context, in *MsgUpdateDelegation, opts ...grpc.CallOption) (*MsgUpdateDelegationResponse, error)
 	DeleteDelegation(ctx context.Context, in *MsgDeleteDelegation, opts ...grpc.CallOption) (*MsgDeleteDelegationResponse, error)
+	SendIbcDelegation(ctx context.Context, in *MsgSendIbcDelegation, opts ...grpc.CallOption) (*MsgSendIbcDelegationResponse, error)
 }
 
 type msgClient struct {
@@ -416,11 +545,21 @@ func (c *msgClient) DeleteDelegation(ctx context.Context, in *MsgDeleteDelegatio
 	return out, nil
 }
 
+func (c *msgClient) SendIbcDelegation(ctx context.Context, in *MsgSendIbcDelegation, opts ...grpc.CallOption) (*MsgSendIbcDelegationResponse, error) {
+	out := new(MsgSendIbcDelegationResponse)
+	err := c.cc.Invoke(ctx, "/lunadelegator.delegator.Msg/SendIbcDelegation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CreateDelegation(context.Context, *MsgCreateDelegation) (*MsgCreateDelegationResponse, error)
 	UpdateDelegation(context.Context, *MsgUpdateDelegation) (*MsgUpdateDelegationResponse, error)
 	DeleteDelegation(context.Context, *MsgDeleteDelegation) (*MsgDeleteDelegationResponse, error)
+	SendIbcDelegation(context.Context, *MsgSendIbcDelegation) (*MsgSendIbcDelegationResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -435,6 +574,9 @@ func (*UnimplementedMsgServer) UpdateDelegation(ctx context.Context, req *MsgUpd
 }
 func (*UnimplementedMsgServer) DeleteDelegation(ctx context.Context, req *MsgDeleteDelegation) (*MsgDeleteDelegationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDelegation not implemented")
+}
+func (*UnimplementedMsgServer) SendIbcDelegation(ctx context.Context, req *MsgSendIbcDelegation) (*MsgSendIbcDelegationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendIbcDelegation not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -495,6 +637,24 @@ func _Msg_DeleteDelegation_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SendIbcDelegation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSendIbcDelegation)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SendIbcDelegation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lunadelegator.delegator.Msg/SendIbcDelegation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SendIbcDelegation(ctx, req.(*MsgSendIbcDelegation))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "lunadelegator.delegator.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -510,6 +670,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteDelegation",
 			Handler:    _Msg_DeleteDelegation_Handler,
+		},
+		{
+			MethodName: "SendIbcDelegation",
+			Handler:    _Msg_SendIbcDelegation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -724,6 +888,95 @@ func (m *MsgDeleteDelegationResponse) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgSendIbcDelegation) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSendIbcDelegation) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSendIbcDelegation) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Amount.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x32
+	if len(m.Delegator) > 0 {
+		i -= len(m.Delegator)
+		copy(dAtA[i:], m.Delegator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Delegator)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if m.TimeoutTimestamp != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.TimeoutTimestamp))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Port) > 0 {
+		i -= len(m.Port)
+		copy(dAtA[i:], m.Port)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Port)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSendIbcDelegationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSendIbcDelegationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSendIbcDelegationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -814,6 +1067,45 @@ func (m *MsgDeleteDelegation) Size() (n int) {
 }
 
 func (m *MsgDeleteDelegationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgSendIbcDelegation) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Port)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ChannelID)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.TimeoutTimestamp != 0 {
+		n += 1 + sovTx(uint64(m.TimeoutTimestamp))
+	}
+	l = len(m.Delegator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = m.Amount.Size()
+	n += 1 + l + sovTx(uint64(l))
+	return n
+}
+
+func (m *MsgSendIbcDelegationResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1388,6 +1680,286 @@ func (m *MsgDeleteDelegationResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgDeleteDelegationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSendIbcDelegation) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSendIbcDelegation: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSendIbcDelegation: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Port", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Port = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TimeoutTimestamp", wireType)
+			}
+			m.TimeoutTimestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TimeoutTimestamp |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Delegator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Delegator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Amount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSendIbcDelegationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSendIbcDelegationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSendIbcDelegationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
