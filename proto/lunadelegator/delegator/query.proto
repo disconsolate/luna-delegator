@@ -8,6 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "lunadelegator/delegator/params.proto";
 import "lunadelegator/delegator/sent_delegation.proto";
 import "lunadelegator/delegator/not_sent_delegation.proto";
+import "lunadelegator/delegator/delegation.proto";
 
 option go_package = "luna-delegator/x/delegator/types";
 
@@ -37,6 +38,16 @@ service Query {
   }
   rpc NotSentDelegationAll (QueryAllNotSentDelegationRequest) returns (QueryAllNotSentDelegationResponse) {
     option (google.api.http).get = "/luna-delegator/delegator/not_sent_delegation";
+  
+  }
+  
+  // Queries a list of Delegation items.
+  rpc Delegation    (QueryGetDelegationRequest) returns (QueryGetDelegationResponse) {
+    option (google.api.http).get = "/luna-delegator/delegator/delegation/{id}";
+  
+  }
+  rpc DelegationAll (QueryAllDelegationRequest) returns (QueryAllDelegationResponse) {
+    option (google.api.http).get = "/luna-delegator/delegator/delegation";
   
   }
 }
@@ -82,5 +93,22 @@ message QueryAllNotSentDelegationRequest {
 message QueryAllNotSentDelegationResponse {
   repeated NotSentDelegation                      NotSentDelegation = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination        = 2;
+}
+
+message QueryGetDelegationRequest {
+  uint64 id = 1;
+}
+
+message QueryGetDelegationResponse {
+  Delegation Delegation = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDelegationRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDelegationResponse {
+  repeated Delegation                             Delegation = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

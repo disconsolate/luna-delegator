@@ -38,3 +38,8 @@ const (
 	NotSentDelegationKey      = "NotSentDelegation/value/"
 	NotSentDelegationCountKey = "NotSentDelegation/count/"
 )
+
+const (
+	DelegationKey      = "Delegation/value/"
+	DelegationCountKey = "Delegation/count/"
+)

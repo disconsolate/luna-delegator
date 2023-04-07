@@ -6,6 +6,7 @@ import "gogoproto/gogo.proto";
 import "lunadelegator/delegator/params.proto";
 import "lunadelegator/delegator/sent_delegation.proto";
 import "lunadelegator/delegator/not_sent_delegation.proto";
+import "lunadelegator/delegator/delegation.proto";
 
 option go_package = "luna-delegator/x/delegator/types";
 
@@ -17,5 +18,7 @@ message GenesisState {
            uint64            sentDelegationCount    = 4;
   repeated NotSentDelegation notSentDelegationList  = 5 [(gogoproto.nullable) = false];
            uint64            notSentDelegationCount = 6;
+  repeated Delegation        delegationList         = 7 [(gogoproto.nullable) = false];
+           uint64            delegationCount        = 8;
 }
 
