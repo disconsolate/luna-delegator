@@ -18,7 +18,7 @@ func (k msgServer) SendIbcDelegation(goCtx context.Context, msg *types.MsgSendIb
 
 	packet.Delegator = msg.Delegator
 	packet.Amount = msg.Amount
-
+	packet.Creator = msg.Creator
 	// Transmit the packet
 	_, err := k.TransmitIbcDelegationPacket(
 		ctx,

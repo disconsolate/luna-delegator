@@ -20,6 +20,7 @@ message NoData {}
 message IbcDelegationPacketData {
   string                   delegator = 1;
   cosmos.base.v1beta1.Coin amount    = 2 [(gogoproto.nullable) = false];
+  string creator = 3;
 }
 
 // IbcDelegationPacketAck defines a struct for the packet acknowledgment
