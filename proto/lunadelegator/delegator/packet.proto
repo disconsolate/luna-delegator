@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunadelegator.delegator;
+
+option go_package = "luna-delegator/x/delegator/types";
+
+message DelegatorPacketData {
+    oneof packet {
+        NoData noData = 1;
+    }
+}
+
+message NoData {
+}

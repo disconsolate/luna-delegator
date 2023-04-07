@@ -1,0 +1,7 @@
+syntax = "proto3";
+package lunadelegator.delegator;
+
+option go_package = "luna-delegator/x/delegator/types";
+
+// Msg defines the Msg service.
+service Msg {}

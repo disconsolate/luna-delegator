@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package lunadelegator.delegator;
+
+import "gogoproto/gogo.proto";
+import "lunadelegator/delegator/params.proto";
+
+option go_package = "luna-delegator/x/delegator/types";
+
+// GenesisState defines the delegator module's genesis state.
+message GenesisState {
+  Params params  = 1 [(gogoproto.nullable) = false];
+  string port_id = 2;
+}
+
