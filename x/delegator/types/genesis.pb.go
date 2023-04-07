@@ -25,8 +25,12 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // GenesisState defines the delegator module's genesis state.
 type GenesisState struct {
-	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
-	PortId string `protobuf:"bytes,2,opt,name=port_id,json=portId,proto3" json:"port_id,omitempty"`
+	Params                 Params              `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+	PortId                 string              `protobuf:"bytes,2,opt,name=port_id,json=portId,proto3" json:"port_id,omitempty"`
+	SentDelegationList     []SentDelegation    `protobuf:"bytes,3,rep,name=sentDelegationList,proto3" json:"sentDelegationList"`
+	SentDelegationCount    uint64              `protobuf:"varint,4,opt,name=sentDelegationCount,proto3" json:"sentDelegationCount,omitempty"`
+	NotSentDelegationList  []NotSentDelegation `protobuf:"bytes,5,rep,name=notSentDelegationList,proto3" json:"notSentDelegationList"`
+	NotSentDelegationCount uint64              `protobuf:"varint,6,opt,name=notSentDelegationCount,proto3" json:"notSentDelegationCount,omitempty"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -76,6 +80,34 @@ func (m *GenesisState) GetPortId() string {
 	return ""
 }
 
+func (m *GenesisState) GetSentDelegationList() []SentDelegation {
+	if m != nil {
+		return m.SentDelegationList
+	}
+	return nil
+}
+
+func (m *GenesisState) GetSentDelegationCount() uint64 {
+	if m != nil {
+		return m.SentDelegationCount
+	}
+	return 0
+}
+
+func (m *GenesisState) GetNotSentDelegationList() []NotSentDelegation {
+	if m != nil {
+		return m.NotSentDelegationList
+	}
+	return nil
+}
+
+func (m *GenesisState) GetNotSentDelegationCount() uint64 {
+	if m != nil {
+		return m.NotSentDelegationCount
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*GenesisState)(nil), "lunadelegator.delegator.GenesisState")
 }
@@ -85,20 +117,27 @@ func init() {
 }
 
 var fileDescriptor_64c823e76c45af52 = []byte{
-	// 200 bytes of a gzipped FileDescriptorProto
+	// 318 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0xcd, 0x29, 0xcd, 0x4b,
 	0x4c, 0x49, 0xcd, 0x49, 0x4d, 0x4f, 0x2c, 0xc9, 0x2f, 0xd2, 0x47, 0xb0, 0xd2, 0x53, 0xf3, 0x52,
 	0x8b, 0x33, 0x8b, 0xf5, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xc4, 0x51, 0x94, 0xe9, 0xc1, 0x59,
 	0x52, 0x22, 0xe9, 0xf9, 0xe9, 0xf9, 0x60, 0x35, 0xfa, 0x20, 0x16, 0x44, 0xb9, 0x94, 0x0a, 0x2e,
-	0x53, 0x0b, 0x12, 0x8b, 0x12, 0x73, 0xa1, 0x86, 0x2a, 0xa5, 0x71, 0xf1, 0xb8, 0x43, 0x6c, 0x09,
-	0x2e, 0x49, 0x2c, 0x49, 0x15, 0xb2, 0xe5, 0x62, 0x83, 0xc8, 0x4b, 0x30, 0x2a, 0x30, 0x6a, 0x70,
-	0x1b, 0xc9, 0xeb, 0xe1, 0xb0, 0x55, 0x2f, 0x00, 0xac, 0xcc, 0x89, 0xe5, 0xc4, 0x3d, 0x79, 0x86,
-	0x20, 0xa8, 0x26, 0x21, 0x71, 0x2e, 0xf6, 0x82, 0xfc, 0xa2, 0x92, 0xf8, 0xcc, 0x14, 0x09, 0x26,
-	0x05, 0x46, 0x0d, 0xce, 0x20, 0x36, 0x10, 0xd7, 0x33, 0xc5, 0xc9, 0xea, 0xc4, 0x23, 0x39, 0xc6,
-	0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39,
-	0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0x14, 0x40, 0x16, 0xe8, 0x22, 0x9c, 0x57, 0x81, 0xe4, 0xd4,
-	0x92, 0xca, 0x82, 0xd4, 0xe2, 0x24, 0x36, 0xb0, 0x53, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff,
-	0xa9, 0x91, 0x1b, 0xa4, 0x28, 0x01, 0x00, 0x00,
+	0x53, 0x0b, 0x12, 0x8b, 0x12, 0x73, 0xa1, 0x86, 0x4a, 0xe9, 0xe2, 0x52, 0x55, 0x9c, 0x9a, 0x57,
+	0x12, 0x0f, 0xe5, 0x66, 0xe6, 0xe7, 0x41, 0x95, 0x1b, 0xe2, 0x52, 0x9e, 0x97, 0x5f, 0x12, 0x8f,
+	0x55, 0x8b, 0xd2, 0x74, 0x66, 0x2e, 0x1e, 0x77, 0x88, 0x47, 0x82, 0x4b, 0x12, 0x4b, 0x52, 0x85,
+	0x6c, 0xb9, 0xd8, 0x20, 0x4e, 0x90, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x36, 0x92, 0xd7, 0xc3, 0xe1,
+	0x31, 0xbd, 0x00, 0xb0, 0x32, 0x27, 0x96, 0x13, 0xf7, 0xe4, 0x19, 0x82, 0xa0, 0x9a, 0x84, 0xc4,
+	0xb9, 0xd8, 0x0b, 0xf2, 0x8b, 0x4a, 0xe2, 0x33, 0x53, 0x24, 0x98, 0x14, 0x18, 0x35, 0x38, 0x83,
+	0xd8, 0x40, 0x5c, 0xcf, 0x14, 0xa1, 0x58, 0x2e, 0x21, 0x90, 0x0b, 0x5c, 0xe0, 0x0e, 0xf0, 0xc9,
+	0x2c, 0x2e, 0x91, 0x60, 0x56, 0x60, 0xd6, 0xe0, 0x36, 0x52, 0xc7, 0x69, 0x47, 0x30, 0x8a, 0x16,
+	0xa8, 0x5d, 0x58, 0x0c, 0x12, 0x32, 0xe0, 0x12, 0x46, 0x15, 0x75, 0xce, 0x2f, 0xcd, 0x2b, 0x91,
+	0x60, 0x51, 0x60, 0xd4, 0x60, 0x09, 0xc2, 0x26, 0x25, 0x94, 0xc6, 0x25, 0x9a, 0x97, 0x5f, 0x12,
+	0x8c, 0xe9, 0x26, 0x56, 0xb0, 0x9b, 0xb4, 0x70, 0xba, 0xc9, 0x0f, 0x5d, 0x17, 0xd4, 0x59, 0xd8,
+	0x8d, 0x13, 0x32, 0xe3, 0x12, 0xc3, 0x90, 0x80, 0x38, 0x8e, 0x0d, 0xec, 0x38, 0x1c, 0xb2, 0x4e,
+	0x56, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7,
+	0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0xa5, 0x00, 0x72, 0x99, 0x2e,
+	0x22, 0x76, 0x2b, 0x90, 0x62, 0xba, 0xa4, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x1c, 0xb9, 0xc6,
+	0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x74, 0x6d, 0xfc, 0xb8, 0xbc, 0x02, 0x00, 0x00,
 }
 
 func (m *GenesisState) Marshal() (dAtA []byte, err error) {
@@ -121,6 +160,44 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.NotSentDelegationCount != 0 {
+		i = encodeVarintGenesis(dAtA, i, uint64(m.NotSentDelegationCount))
+		i--
+		dAtA[i] = 0x30
+	}
+	if len(m.NotSentDelegationList) > 0 {
+		for iNdEx := len(m.NotSentDelegationList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.NotSentDelegationList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x2a
+		}
+	}
+	if m.SentDelegationCount != 0 {
+		i = encodeVarintGenesis(dAtA, i, uint64(m.SentDelegationCount))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.SentDelegationList) > 0 {
+		for iNdEx := len(m.SentDelegationList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.SentDelegationList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
 	if len(m.PortId) > 0 {
 		i -= len(m.PortId)
 		copy(dAtA[i:], m.PortId)
@@ -163,6 +240,24 @@ func (m *GenesisState) Size() (n int) {
 	l = len(m.PortId)
 	if l > 0 {
 		n += 1 + l + sovGenesis(uint64(l))
+	}
+	if len(m.SentDelegationList) > 0 {
+		for _, e := range m.SentDelegationList {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if m.SentDelegationCount != 0 {
+		n += 1 + sovGenesis(uint64(m.SentDelegationCount))
+	}
+	if len(m.NotSentDelegationList) > 0 {
+		for _, e := range m.NotSentDelegationList {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if m.NotSentDelegationCount != 0 {
+		n += 1 + sovGenesis(uint64(m.NotSentDelegationCount))
 	}
 	return n
 }
@@ -267,6 +362,112 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 			}
 			m.PortId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SentDelegationList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SentDelegationList = append(m.SentDelegationList, SentDelegation{})
+			if err := m.SentDelegationList[len(m.SentDelegationList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SentDelegationCount", wireType)
+			}
+			m.SentDelegationCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SentDelegationCount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NotSentDelegationList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.NotSentDelegationList = append(m.NotSentDelegationList, NotSentDelegation{})
+			if err := m.NotSentDelegationList[len(m.NotSentDelegationList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NotSentDelegationCount", wireType)
+			}
+			m.NotSentDelegationCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NotSentDelegationCount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenesis(dAtA[iNdEx:])

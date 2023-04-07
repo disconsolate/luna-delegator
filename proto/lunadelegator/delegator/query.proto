@@ -1,26 +1,86 @@
 syntax = "proto3";
+
 package lunadelegator.delegator;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "lunadelegator/delegator/params.proto";
+import "lunadelegator/delegator/sent_delegation.proto";
+import "lunadelegator/delegator/not_sent_delegation.proto";
 
 option go_package = "luna-delegator/x/delegator/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/luna-delegator/delegator/params";
+  
+  }
+  
+  // Queries a list of SentDelegation items.
+  rpc SentDelegation    (QueryGetSentDelegationRequest) returns (QueryGetSentDelegationResponse) {
+    option (google.api.http).get = "/luna-delegator/delegator/sent_delegation/{id}";
+  
+  }
+  rpc SentDelegationAll (QueryAllSentDelegationRequest) returns (QueryAllSentDelegationResponse) {
+    option (google.api.http).get = "/luna-delegator/delegator/sent_delegation";
+  
+  }
+  
+  // Queries a list of NotSentDelegation items.
+  rpc NotSentDelegation    (QueryGetNotSentDelegationRequest) returns (QueryGetNotSentDelegationResponse) {
+    option (google.api.http).get = "/luna-delegator/delegator/not_sent_delegation/{id}";
+  
+  }
+  rpc NotSentDelegationAll (QueryAllNotSentDelegationRequest) returns (QueryAllNotSentDelegationResponse) {
+    option (google.api.http).get = "/luna-delegator/delegator/not_sent_delegation";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryGetSentDelegationRequest {
+  uint64 id = 1;
+}
+
+message QueryGetSentDelegationResponse {
+  SentDelegation SentDelegation = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSentDelegationRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSentDelegationResponse {
+  repeated SentDelegation                         SentDelegation = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+
+message QueryGetNotSentDelegationRequest {
+  uint64 id = 1;
+}
+
+message QueryGetNotSentDelegationResponse {
+  NotSentDelegation NotSentDelegation = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllNotSentDelegationRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllNotSentDelegationResponse {
+  repeated NotSentDelegation                      NotSentDelegation = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination        = 2;
+}
+

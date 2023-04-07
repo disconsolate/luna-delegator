@@ -14,6 +14,24 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 		PortId: types.PortID,
+		SentDelegationList: []types.SentDelegation{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		SentDelegationCount: 2,
+		NotSentDelegationList: []types.NotSentDelegation{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		NotSentDelegationCount: 2,
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -27,5 +45,9 @@ func TestGenesis(t *testing.T) {
 
 	require.Equal(t, genesisState.PortId, got.PortId)
 
+	require.ElementsMatch(t, genesisState.SentDelegationList, got.SentDelegationList)
+	require.Equal(t, genesisState.SentDelegationCount, got.SentDelegationCount)
+	require.ElementsMatch(t, genesisState.NotSentDelegationList, got.NotSentDelegationList)
+	require.Equal(t, genesisState.NotSentDelegationCount, got.NotSentDelegationCount)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

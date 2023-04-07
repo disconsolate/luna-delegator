@@ -28,3 +28,13 @@ var (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	SentDelegationKey      = "SentDelegation/value/"
+	SentDelegationCountKey = "SentDelegation/count/"
+)
+
+const (
+	NotSentDelegationKey      = "NotSentDelegation/value/"
+	NotSentDelegationCountKey = "NotSentDelegation/count/"
+)

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunadelegator.delegator;
+
+option go_package = "luna-delegator/x/delegator/types";
+import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto"; 
+
+message NotSentDelegation {
+  uint64 id = 1;
+  string delegator = 2; 
+  cosmos.base.v1beta1.Coin amount = 3 [(gogoproto.nullable) = false]; 
+  
+}

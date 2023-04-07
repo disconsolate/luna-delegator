@@ -22,9 +22,79 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 				PortId: types.PortID,
+				SentDelegationList: []types.SentDelegation{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				SentDelegationCount: 2,
+				NotSentDelegationList: []types.NotSentDelegation{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				NotSentDelegationCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated sentDelegation",
+			genState: &types.GenesisState{
+				SentDelegationList: []types.SentDelegation{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid sentDelegation count",
+			genState: &types.GenesisState{
+				SentDelegationList: []types.SentDelegation{
+					{
+						Id: 1,
+					},
+				},
+				SentDelegationCount: 0,
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated notSentDelegation",
+			genState: &types.GenesisState{
+				NotSentDelegationList: []types.NotSentDelegation{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid notSentDelegation count",
+			genState: &types.GenesisState{
+				NotSentDelegationList: []types.NotSentDelegation{
+					{
+						Id: 1,
+					},
+				},
+				NotSentDelegationCount: 0,
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {
