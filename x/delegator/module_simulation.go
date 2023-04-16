@@ -36,6 +36,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgDeleteDelegation int = 100
 
+	opWeightMsgIbcDelegateLunaMessage = "op_weight_msg_ibc_delegate_luna_message"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgIbcDelegateLunaMessage int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -113,6 +117,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDeleteDelegation,
 		delegatorsimulation.SimulateMsgDeleteDelegation(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgIbcDelegateLunaMessage int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgIbcDelegateLunaMessage, &weightMsgIbcDelegateLunaMessage, nil,
+		func(_ *rand.Rand) {
+			weightMsgIbcDelegateLunaMessage = defaultWeightMsgIbcDelegateLunaMessage
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgIbcDelegateLunaMessage,
+		delegatorsimulation.SimulateMsgIbcDelegateLunaMessage(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

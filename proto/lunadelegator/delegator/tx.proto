@@ -10,10 +10,11 @@ option go_package = "luna-delegator/x/delegator/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateDelegation  (MsgCreateDelegation ) returns (MsgCreateDelegationResponse );
-  rpc UpdateDelegation  (MsgUpdateDelegation ) returns (MsgUpdateDelegationResponse );
-  rpc DeleteDelegation  (MsgDeleteDelegation ) returns (MsgDeleteDelegationResponse );
-  rpc SendIbcDelegation (MsgSendIbcDelegation) returns (MsgSendIbcDelegationResponse);
+  rpc CreateDelegation       (MsgCreateDelegation      ) returns (MsgCreateDelegationResponse      );
+  rpc UpdateDelegation       (MsgUpdateDelegation      ) returns (MsgUpdateDelegationResponse      );
+  rpc DeleteDelegation       (MsgDeleteDelegation      ) returns (MsgDeleteDelegationResponse      );
+  rpc SendIbcDelegation      (MsgSendIbcDelegation     ) returns (MsgSendIbcDelegationResponse     );
+  rpc IbcDelegateLunaMessage (MsgIbcDelegateLunaMessage) returns (MsgIbcDelegateLunaMessageResponse);
 }
 message MsgCreateDelegation {
   string                   creator   = 1;
@@ -51,4 +52,15 @@ message MsgSendIbcDelegation {
 }
 
 message MsgSendIbcDelegationResponse {}
+
+message MsgIbcDelegateLunaMessage {
+  string                   creator            = 1;
+  string                   destinationChain   = 2;
+  string                   destinationAccount = 3;
+  cosmos.base.v1beta1.Coin amount             = 4 [(gogoproto.nullable) = false];
+}
+
+message MsgIbcDelegateLunaMessageResponse {
+  uint64 id = 1;
+}
 

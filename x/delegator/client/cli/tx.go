@@ -34,6 +34,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdUpdateDelegation())
 	cmd.AddCommand(CmdDeleteDelegation())
 	cmd.AddCommand(CmdSendIbcDelegation())
+	cmd.AddCommand(CmdIbcDelegateLunaMessage())
 	// this line is used by starport scaffolding # 1
 
 	return cmd
