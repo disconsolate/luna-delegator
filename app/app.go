@@ -103,6 +103,10 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
+	icqModule "github.com/strangelove-ventures/async-icq/v6"
+	icqModuleKeeper "github.com/strangelove-ventures/async-icq/v6/keeper"
+	icqModuleTypes "github.com/strangelove-ventures/async-icq/v6/types"
+
 	delegatormodule "luna-delegator/x/delegator"
 	delegatormodulekeeper "luna-delegator/x/delegator/keeper"
 	delegatormoduletypes "luna-delegator/x/delegator/types"
@@ -165,6 +169,7 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		delegatormodule.AppModuleBasic{},
+		icqModule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -240,6 +245,9 @@ type App struct {
 
 	ScopedDelegatorKeeper capabilitykeeper.ScopedKeeper
 	DelegatorKeeper       delegatormodulekeeper.Keeper
+
+	ScopedICQKeeper capabilitykeeper.ScopedKeeper
+	ICQKeeper       icqModuleKeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -285,6 +293,7 @@ func New(
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, group.StoreKey,
 		icacontrollertypes.StoreKey,
 		delegatormoduletypes.StoreKey,
+		icqModuleTypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -607,6 +616,7 @@ func New(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		delegatormoduletypes.ModuleName,
+		icqModuleTypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -632,6 +642,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		delegatormoduletypes.ModuleName,
+		icqModuleTypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -662,6 +673,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		delegatormoduletypes.ModuleName,
+		icqModuleTypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
