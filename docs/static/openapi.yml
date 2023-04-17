@@ -72074,8 +72074,6 @@ definitions:
         format: uint64
   lunadelegator.delegator.MsgSendIBCBalanceQueryPacketResponse:
     type: object
-  lunadelegator.delegator.MsgSendIbcDelegationResponse:
-    type: object
   lunadelegator.delegator.MsgUpdateDelegationResponse:
     type: object
   lunadelegator.delegator.NotSentDelegation:

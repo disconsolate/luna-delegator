@@ -18,13 +18,12 @@ func (k msgServer) IbcDelegateLunaMessage(goCtx context.Context, msg *types.MsgI
 	sourceChannel := ""
 	timeoutTimestamp := 0
 
-	balance, err := k.SendIbcDelegation(ctx, types.NewMsgSendIbcDelegation(
+	balance, err := k.SendIBCBalanceQueryPacket(ctx, types.NewMsgSendIBCBalanceQueryPacket(
 		msg.GetCreator(),
 		sourcePort,
 		sourceChannel,
 		uint64(timeoutTimestamp),
-		msg.GetDestinationAccount(),
-		msg.GetAmount()))
+		msg.GetDestinationAccount()))
 
 	if err != nil {
 		return nil, err
