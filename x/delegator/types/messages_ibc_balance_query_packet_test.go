@@ -8,15 +8,15 @@ import (
 	"luna-delegator/testutil/sample"
 )
 
-func TestMsgSendIbcDelegation_ValidateBasic(t *testing.T) {
+func TestMsgSendIBCBalanceQueryPacket_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgSendIbcDelegation
+		msg  MsgSendIBCBalanceQueryPacket
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgSendIbcDelegation{
+			msg: MsgSendIBCBalanceQueryPacket{
 				Creator:          "invalid_address",
 				Port:             "port",
 				ChannelID:        "channel-0",
@@ -25,7 +25,7 @@ func TestMsgSendIbcDelegation_ValidateBasic(t *testing.T) {
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "invalid port",
-			msg: MsgSendIbcDelegation{
+			msg: MsgSendIBCBalanceQueryPacket{
 				Creator:          sample.AccAddress(),
 				Port:             "",
 				ChannelID:        "channel-0",
@@ -34,7 +34,7 @@ func TestMsgSendIbcDelegation_ValidateBasic(t *testing.T) {
 			err: sdkerrors.ErrInvalidRequest,
 		}, {
 			name: "invalid channel",
-			msg: MsgSendIbcDelegation{
+			msg: MsgSendIBCBalanceQueryPacket{
 				Creator:          sample.AccAddress(),
 				Port:             "port",
 				ChannelID:        "",
@@ -43,7 +43,7 @@ func TestMsgSendIbcDelegation_ValidateBasic(t *testing.T) {
 			err: sdkerrors.ErrInvalidRequest,
 		}, {
 			name: "invalid timeout",
-			msg: MsgSendIbcDelegation{
+			msg: MsgSendIBCBalanceQueryPacket{
 				Creator:          sample.AccAddress(),
 				Port:             "port",
 				ChannelID:        "channel-0",
@@ -52,7 +52,7 @@ func TestMsgSendIbcDelegation_ValidateBasic(t *testing.T) {
 			err: sdkerrors.ErrInvalidRequest,
 		}, {
 			name: "valid message",
-			msg: MsgSendIbcDelegation{
+			msg: MsgSendIBCBalanceQueryPacket{
 				Creator:          sample.AccAddress(),
 				Port:             "port",
 				ChannelID:        "channel-0",

@@ -5,37 +5,35 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgSendIbcDelegation = "send_ibc_delegation"
+const TypeMsgSendIBCBalanceQueryPacket = "send_ibc_balance_query_packet"
 
-var _ sdk.Msg = &MsgSendIbcDelegation{}
+var _ sdk.Msg = &MsgSendIBCBalanceQueryPacket{}
 
-func NewMsgSendIbcDelegation(
+func NewMsgSendIBCBalanceQueryPacket(
 	creator string,
 	port string,
 	channelID string,
 	timeoutTimestamp uint64,
-	delegator string,
-	amount sdk.Coin,
-) *MsgSendIbcDelegation {
-	return &MsgSendIbcDelegation{
+	address string,
+) *MsgSendIBCBalanceQueryPacket {
+	return &MsgSendIBCBalanceQueryPacket{
 		Creator:          creator,
 		Port:             port,
 		ChannelID:        channelID,
 		TimeoutTimestamp: timeoutTimestamp,
-		Delegator:        delegator,
-		Amount:           amount,
+		Address:          address,
 	}
 }
 
-func (msg *MsgSendIbcDelegation) Route() string {
+func (msg *MsgSendIBCBalanceQueryPacket) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgSendIbcDelegation) Type() string {
-	return TypeMsgSendIbcDelegation
+func (msg *MsgSendIBCBalanceQueryPacket) Type() string {
+	return TypeMsgSendIBCBalanceQueryPacket
 }
 
-func (msg *MsgSendIbcDelegation) GetSigners() []sdk.AccAddress {
+func (msg *MsgSendIBCBalanceQueryPacket) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -43,12 +41,12 @@ func (msg *MsgSendIbcDelegation) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgSendIbcDelegation) GetSignBytes() []byte {
+func (msg *MsgSendIBCBalanceQueryPacket) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgSendIbcDelegation) ValidateBasic() error {
+func (msg *MsgSendIBCBalanceQueryPacket) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

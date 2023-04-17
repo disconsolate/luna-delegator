@@ -2,24 +2,24 @@ package keeper
 
 import (
 	"context"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	clienttypes "github.com/cosmos/ibc-go/v6/modules/core/02-client/types"
 	"luna-delegator/x/delegator/types"
 )
 
-func (k msgServer) SendIbcDelegation(goCtx context.Context, msg *types.MsgSendIbcDelegation) (*types.MsgSendIbcDelegationResponse, error) {
+func (k msgServer) SendIBCBalanceQueryPacket(goCtx context.Context, msg *types.MsgSendIBCBalanceQueryPacket) (*types.MsgSendIBCBalanceQueryPacketResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: logic before transmitting the packet
 
 	// Construct the packet
-	var packet types.IbcDelegationPacketData
+	var packet types.IBCBalanceQueryPacketPacketData
 
-	packet.Delegator = msg.Delegator
-	packet.Amount = msg.Amount
-	packet.Creator = msg.Creator
+	packet.Address = msg.Address
+
 	// Transmit the packet
-	_, err := k.TransmitIbcDelegationPacket(
+	_, err := k.TransmitIBCBalanceQueryPacketPacket(
 		ctx,
 		packet,
 		msg.Port,
@@ -31,5 +31,5 @@ func (k msgServer) SendIbcDelegation(goCtx context.Context, msg *types.MsgSendIb
 		return nil, err
 	}
 
-	return &types.MsgSendIbcDelegationResponse{}, nil
+	return &types.MsgSendIBCBalanceQueryPacketResponse{}, nil
 }

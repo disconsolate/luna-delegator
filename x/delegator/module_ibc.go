@@ -149,8 +149,8 @@ func (im IBCModule) OnRecvPacket(
 
 	// Dispatch packet
 	switch packet := modulePacketData.Packet.(type) {
-	case *types.DelegatorPacketData_IbcDelegationPacket:
-		packetAck, err := im.keeper.OnRecvIbcDelegationPacket(ctx, modulePacket, *packet.IbcDelegationPacket)
+	case *types.DelegatorPacketData_IBCBalanceQueryPacketPacket:
+		packetAck, err := im.keeper.OnRecvIBCBalanceQueryPacketPacket(ctx, modulePacket, *packet.IBCBalanceQueryPacketPacket)
 		if err != nil {
 			ack = channeltypes.NewErrorAcknowledgement(err)
 		} else {
@@ -163,7 +163,7 @@ func (im IBCModule) OnRecvPacket(
 		}
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
-				types.EventTypeIbcDelegationPacket,
+				types.EventTypeIBCBalanceQueryPacketPacket,
 				sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
 				sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
 			),
@@ -201,12 +201,12 @@ func (im IBCModule) OnAcknowledgementPacket(
 
 	// Dispatch packet
 	switch packet := modulePacketData.Packet.(type) {
-	case *types.DelegatorPacketData_IbcDelegationPacket:
-		err := im.keeper.OnAcknowledgementIbcDelegationPacket(ctx, modulePacket, *packet.IbcDelegationPacket, ack)
+	case *types.DelegatorPacketData_IBCBalanceQueryPacketPacket:
+		err := im.keeper.OnAcknowledgementIBCBalanceQueryPacketPacket(ctx, modulePacket, *packet.IBCBalanceQueryPacketPacket, ack)
 		if err != nil {
 			return err
 		}
-		eventType = types.EventTypeIbcDelegationPacket
+		eventType = types.EventTypeIBCBalanceQueryPacketPacket
 		// this line is used by starport scaffolding # ibc/packet/module/ack
 	default:
 		errMsg := fmt.Sprintf("unrecognized %s packet type: %T", types.ModuleName, packet)
@@ -254,8 +254,8 @@ func (im IBCModule) OnTimeoutPacket(
 
 	// Dispatch packet
 	switch packet := modulePacketData.Packet.(type) {
-	case *types.DelegatorPacketData_IbcDelegationPacket:
-		err := im.keeper.OnTimeoutIbcDelegationPacket(ctx, modulePacket, *packet.IbcDelegationPacket)
+	case *types.DelegatorPacketData_IBCBalanceQueryPacketPacket:
+		err := im.keeper.OnTimeoutIBCBalanceQueryPacketPacket(ctx, modulePacket, *packet.IBCBalanceQueryPacketPacket)
 		if err != nil {
 			return err
 		}

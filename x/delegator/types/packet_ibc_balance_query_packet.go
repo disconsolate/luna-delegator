@@ -1,7 +1,7 @@
 package types
 
 // ValidateBasic is used for validating the packet
-func (p IbcDelegationPacketData) ValidateBasic() error {
+func (p IBCBalanceQueryPacketPacketData) ValidateBasic() error {
 
 	// TODO: Validate the packet data
 
@@ -9,10 +9,10 @@ func (p IbcDelegationPacketData) ValidateBasic() error {
 }
 
 // GetBytes is a helper for serialising
-func (p IbcDelegationPacketData) GetBytes() ([]byte, error) {
+func (p IBCBalanceQueryPacketPacketData) GetBytes() ([]byte, error) {
 	var modulePacket DelegatorPacketData
 
-	modulePacket.Packet = &DelegatorPacketData_IbcDelegationPacket{&p}
+	modulePacket.Packet = &DelegatorPacketData_IBCBalanceQueryPacketPacket{&p}
 
 	return modulePacket.Marshal()
 }

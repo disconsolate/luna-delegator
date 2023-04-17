@@ -3,22 +3,23 @@ package keeper
 import (
 	"errors"
 	"fmt"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	icqtypes "github.com/strangelove-ventures/async-icq/v6/types"
+	abcitypes "github.com/tendermint/tendermint/abci/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	clienttypes "github.com/cosmos/ibc-go/v6/modules/core/02-client/types"
 	channeltypes "github.com/cosmos/ibc-go/v6/modules/core/04-channel/types"
 	host "github.com/cosmos/ibc-go/v6/modules/core/24-host"
-	icqtypes "github.com/strangelove-ventures/async-icq/v6/types"
-	abcitypes "github.com/tendermint/tendermint/abci/types"
 	"luna-delegator/x/delegator/types"
 )
 
-// TransmitIbcDelegationPacket transmits the packet over IBC with the specified source port and source channel
-func (k Keeper) TransmitIbcDelegationPacket(
+// TransmitIBCBalanceQueryPacketPacket transmits the packet over IBC with the specified source port and source channel
+func (k Keeper) TransmitIBCBalanceQueryPacketPacket(
 	ctx sdk.Context,
-	packetData types.IbcDelegationPacketData,
+	packetData types.IBCBalanceQueryPacketPacketData,
 	sourcePort,
 	sourceChannel string,
 	timeoutHeight clienttypes.Height,
@@ -42,7 +43,7 @@ func (k Keeper) TransmitIbcDelegationPacket(
 	}
 
 	q := banktypes.QueryAllBalancesRequest{
-		Address: packetData.Delegator,
+		Address: packetData.GetAddress(),
 		Pagination: &query.PageRequest{
 			Offset: 0,
 			Limit:  10,
@@ -83,8 +84,8 @@ func (k Keeper) TransmitIbcDelegationPacket(
 	return k.channelKeeper.SendPacket(ctx, channelCap, sourcePort, sourceChannel, timeoutHeight, timeoutTimestamp, packetBytes)
 }
 
-// OnRecvIbcDelegationPacket processes packet reception
-func (k Keeper) OnRecvIbcDelegationPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcDelegationPacketData) (packetAck types.IbcDelegationPacketAck, err error) {
+// OnRecvIBCBalanceQueryPacketPacket processes packet reception
+func (k Keeper) OnRecvIBCBalanceQueryPacketPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IBCBalanceQueryPacketPacketData) (packetAck types.IBCBalanceQueryPacketPacketAck, err error) {
 	// validate packet data upon receiving
 	if err := data.ValidateBasic(); err != nil {
 		return packetAck, err
@@ -95,9 +96,9 @@ func (k Keeper) OnRecvIbcDelegationPacket(ctx sdk.Context, packet channeltypes.P
 	return packetAck, nil
 }
 
-// OnAcknowledgementIbcDelegationPacket responds to the the success or failure of a packet
+// OnAcknowledgementIBCBalanceQueryPacketPacket responds to the the success or failure of a packet
 // acknowledgement written on the receiving chain.
-func (k Keeper) OnAcknowledgementIbcDelegationPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcDelegationPacketData, ack channeltypes.Acknowledgement) error {
+func (k Keeper) OnAcknowledgementIBCBalanceQueryPacketPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IBCBalanceQueryPacketPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
 
@@ -125,28 +126,10 @@ func (k Keeper) OnAcknowledgementIbcDelegationPacket(ctx sdk.Context, packet cha
 			return sdkerrors.Wrapf(err, "failed to unmarshal interchain query response to type %T", dispatchedAck)
 		}
 
-		balanceAmount := r.Balances.AmountOf("uluna")
-		fmt.Print("ICA balance: ", balanceAmount)
 		//TODO: I don't know how to send this balance back to the message server!
 		//TODO: tried to save it in the keeper but it wasn't the solution!
-
-		var packetAck types.IbcDelegationPacketAck
-
-		if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
-			// The counter-party module doesn't implement the correct acknowledgment format
-			return errors.New("cannot unmarshal acknowledgment")
-		}
-		k.AppendSentDelegation(
-			ctx,
-			types.SentDelegation{
-				// TODO: what is id here?
-				//Id:,
-				Delegator: data.Delegator,
-				Amount:    data.Amount,
-				Validator: packetAck.Validator,
-			},
-		)
-
+		balanceAmount := r.Balances.AmountOf("uluna")
+		fmt.Print("ICA balance: ", balanceAmount)
 		return nil
 	default:
 		// The counter-party module doesn't implement the correct acknowledgment format
@@ -154,18 +137,10 @@ func (k Keeper) OnAcknowledgementIbcDelegationPacket(ctx sdk.Context, packet cha
 	}
 }
 
-// OnTimeoutIbcDelegationPacket responds to the case where a packet has not been transmitted because of a timeout
-func (k Keeper) OnTimeoutIbcDelegationPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcDelegationPacketData) error {
+// OnTimeoutIBCBalanceQueryPacketPacket responds to the case where a packet has not been transmitted because of a timeout
+func (k Keeper) OnTimeoutIBCBalanceQueryPacketPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IBCBalanceQueryPacketPacketData) error {
 
 	// TODO: packet timeout logic
-	k.AppendNotSentDelegation(
-		ctx,
-		types.NotSentDelegation{
-			Id:        0,
-			Delegator: data.Delegator,
-			Amount:    data.Amount,
-		},
-	)
 
 	return nil
 }
