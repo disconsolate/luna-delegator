@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"errors"
+	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -105,19 +106,41 @@ func (k Keeper) OnAcknowledgementIbcDelegationPacket(ctx sdk.Context, packet cha
 
 		return nil
 	case *channeltypes.Acknowledgement_Result:
-		// Decode the packet acknowledgment
+		var ackData icqtypes.InterchainQueryPacketAck
+		if err := icqtypes.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &ackData); err != nil {
+			return sdkerrors.Wrap(err, "failed to unmarshal interchain query packet ack")
+		}
+
+		resps, err := icqtypes.DeserializeCosmosResponse(ackData.Data)
+		if err != nil {
+			return sdkerrors.Wrap(err, "failed to unmarshal interchain query packet ack to cosmos response")
+		}
+
+		if len(resps) < 1 {
+			return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "no responses in interchain query packet ack")
+		}
+
+		var r banktypes.QueryAllBalancesResponse
+		if err := k.cdc.Unmarshal(resps[0].Value, &r); err != nil {
+			return sdkerrors.Wrapf(err, "failed to unmarshal interchain query response to type %T", dispatchedAck)
+		}
+
+		balanceAmount := r.Balances.AmountOf("uluna")
+		fmt.Print("ICA balance: ", balanceAmount)
+		//TODO: I don't know how to send this balance back to the message server!
+		//TODO: tried to save it in the keeper but it wasn't the solution!
+
 		var packetAck types.IbcDelegationPacketAck
 
 		if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
 			// The counter-party module doesn't implement the correct acknowledgment format
 			return errors.New("cannot unmarshal acknowledgment")
 		}
-
-		// TODO: successful acknowledgement logic
 		k.AppendSentDelegation(
 			ctx,
 			types.SentDelegation{
-				Id:        0,
+				// TODO: what is id here?
+				//Id:,
 				Delegator: data.Delegator,
 				Amount:    data.Amount,
 				Validator: packetAck.Validator,
